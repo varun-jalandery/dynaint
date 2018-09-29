@@ -1,0 +1,32 @@
+{
+  "extends": "airbnb-base",
+  "parserOptions": { "ecmaVersion": 2017 },
+  "rules": {
+    "indent": ["error", 4],
+    "no-new": 0,
+    "no-console":0,
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always",
+      "imports": "never",
+      "exports": "never",
+      "functions": "ignore"
+    }],
+    "no-unused-vars": ["error"],
+    "import/extensions": ["off", "never"],
+    "class-methods-use-this": ["off"]
+  },
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "rules": {
+        "import/no-unresolved": "off"
+      }
+    }
+  ],
+  "env": {
+    "mocha": true,
+    "browser": true,
+    "node": true
+  }
+}

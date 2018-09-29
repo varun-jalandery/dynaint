@@ -1,0 +1,34 @@
+{
+  "name": "lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_PATH=. node bin/index",
+    "test": "NODE_PATH=. NODE_ENV=test mocha --recursive",
+    "test:coverage": "NODE_PATH=. NODE_ENV=test istanbul cover node_modules/mocha/bin/_mocha -- --recursive --colors --reporter spec test/",
+    "lint": "eslint --ext=.js lambdas/*",
+    "lint:fix": "eslint --ext=.js lambdas/* --fix"
+  },
+  "pre-commit": [
+    "test",
+    "lint"
+  ],
+  "author": "Varun Jalandery <varun.jalandery@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^5.0.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "istanbul": "^1.1.0-alpha.1",
+    "karma": "^3.0.0",
+    "karma-coverage": "^1.1.2",
+    "mocha": "^5.2.0",
+    "pre-commit": "^1.2.2"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.325.0",
+    "dotenv": "^6.0.0"
+  }
+}
