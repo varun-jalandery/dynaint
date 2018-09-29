@@ -2,13 +2,17 @@ const aws = require('aws-sdk');
 
 const dynamoDb = new aws.DynamoDB.DocumentClient();
 const DynamoDbQuery = require('./DynamoDbQuery');
+const LambdaFy = require('./LambdaFy');
 
 class UpsertUser {
     static async handler(event) {
+        const headers = { 'x-lambda-func': 'upsert-users-lambda', };
         try {
-            return await UpsertUser.upsert(UpsertUser.getUserFromEvent(event));
+            const payload = event.body ? JSON.parse(event.body) : event;
+            const body = await UpsertUser.upsert(UpsertUser.getUserFromEvent(payload));
+            return LambdaFy.response(body, 200, headers);
         } catch (err) {
-            return err.stack;
+            return LambdaFy.response(err, 500, headers);
         }
     }
 
