@@ -2,13 +2,18 @@ const aws = require('aws-sdk');
 
 const dynamoDb = new aws.DynamoDB.DocumentClient();
 const DynamoDbQuery = require('./DynamoDbQuery');
+const LambdaFy = require('./LambdaFy');
 
 class UpsertUserInterests {
     static async handler(event) {
         try {
-            return await UpsertUserInterests.update(UpsertUserInterests.getInterests(event), event);
+            const payload = event.body ? JSON.parse(event.body) : event;
+            const body = await UpsertUserInterests.update(
+                UpsertUserInterests.getInterests(payload)
+            );
+            return LambdaFy.response(body, 200);
         } catch (err) {
-            return 'Unable to update user interests';
+            return LambdaFy.response(err, 500);
         }
     }
 

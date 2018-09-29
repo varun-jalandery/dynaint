@@ -6,13 +6,12 @@ const LambdaFy = require('./LambdaFy');
 
 class UpsertUser {
     static async handler(event) {
-        const headers = { 'x-lambda-func': 'upsert-users-lambda', };
         try {
             const payload = event.body ? JSON.parse(event.body) : event;
             const body = await UpsertUser.upsert(UpsertUser.getUserFromEvent(payload));
-            return LambdaFy.response(body, 200, headers);
+            return LambdaFy.response(body, 200);
         } catch (err) {
-            return LambdaFy.response(err, 500, headers);
+            return LambdaFy.response(err, 500);
         }
     }
 

@@ -8,7 +8,7 @@ class LambdaFy {
         const response = {
             statusCode,
             isBase64Encoded,
-            body: JSON.stringify(body),
+            body,
         };
         if (Object.keys(headers).length) {
             response.headers = headers;
