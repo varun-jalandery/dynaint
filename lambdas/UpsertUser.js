@@ -1,8 +1,7 @@
-
-
 const aws = require('aws-sdk');
 
 const dynamoDb = new aws.DynamoDB.DocumentClient();
+const DynamoDbQuery = require('./DynamoDbQuery');
 
 class UpsertUser {
     static async handler(event) {
@@ -26,38 +25,16 @@ class UpsertUser {
 
     static async upsert(user) {
         return new Promise((resolve, reject) => {
-            dynamoDb.update(UpsertUser.getUpsertQuery(user), (err, data) => {
-                if (err) {
-                    return reject(err);
+            dynamoDb.update(
+                DynamoDbQuery.getUpsertQuery(user, 'users', 'mobile'),
+                (err, result) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve(result);
                 }
-                return resolve(data);
-            });
+            );
         });
-    }
-
-    static getUpsertQuery(user) {
-        const upsertQuery = {
-            TableName: 'users',
-            Key: {
-                mobile: user.mobile,
-            },
-        };
-        const nonPartitionKeys = UpsertUser.getValidKeys(['mobile']);
-
-        upsertQuery.UpdateExpression = 'SET ';
-        upsertQuery.ExpressionAttributeValues = {};
-        upsertQuery.ReturnValues = 'ALL_NEW';
-        upsertQuery.ExpressionAttributeNames = {};
-        const updateExpressionPairs = [];
-        Object.keys(user).forEach((key) => {
-            if (nonPartitionKeys.indexOf(key) !== -1) {
-                updateExpressionPairs.push(`#${key}=:${key}`);
-                upsertQuery.ExpressionAttributeNames[`#${key}`] = key;
-                upsertQuery.ExpressionAttributeValues[`:${key}`] = user[key];
-            }
-        });
-        upsertQuery.UpdateExpression += updateExpressionPairs.join(',');
-        return upsertQuery;
     }
 
     static getValidKeys(excludeKeys = []) {
