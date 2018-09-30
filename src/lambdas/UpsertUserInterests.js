@@ -1,8 +1,8 @@
 const aws = require('aws-sdk');
 
 const dynamoDb = new aws.DynamoDB.DocumentClient();
-const DynamoDbQuery = require('../src/lib/DynamoDbQuery');
-const LambdaFy = require('../src/lib/LambdaFy');
+const DynamoDbQuery = require('../lib/DynamoDbQuery');
+const LambdaFy = require('../lib/LambdaFy');
 
 class UpsertUserInterests {
     static async handler(event) {
