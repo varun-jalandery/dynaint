@@ -1,4 +1,4 @@
-#Aws - Lambdas, Api Gateway and DynamoDB
+# Aws - Lambdas, Api Gateway and DynamoDB
 This project is done in node js.
 For unit and functional tests mocha and chai libraries are used.
 
@@ -7,7 +7,7 @@ For computing test coverage istanbul library is used.
 For making requests to aws api gateways in functional tests, aws4
 module is used.
 
-##Project Directory/File Structure
+## Project Directory/File Structure
 1. **src** - This directory contains the source code.
 2. **test** - This directory contains the unit and functional tests.
 3. **.env.sample** - This is the sample file for the environment vars.
@@ -36,7 +36,7 @@ call api gateway.
 tests.
 
 
-##Commands
+## Commands
 To install the dependencies
 ```sh
 $ npm install
