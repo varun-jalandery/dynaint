@@ -10,6 +10,20 @@ module is used for signing the request for authentication
 For rate limiting, aws api gateway is configured.  60 requests per second
 is configured.
 
+For storing the data, Amazon DynamoDb is used.
+Partition key is used as mobile.
+
+##### Next Steps:
+1. Add Global Secondary Index in DynamoDb to support getting the documents
+via email. This will enable the feature of updating the user both
+via email or mobile.
+
+##### Future Steps:
+1. Add console task to upload Lambdas to Aws cloud. This will speed up
+the process of deploying lambdas. Also it would make this step less
+error prone, because manually uploading lambdas can include mistakes.
+
+
 
 
 ## Project Directory/File Structure
