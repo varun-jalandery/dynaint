@@ -5,7 +5,12 @@ For unit and functional tests mocha and chai libraries are used.
 For computing test coverage istanbul library is used.
 
 For making requests to aws api gateways in functional tests, aws4
-module is used.
+module is used for signing the request for authentication
+
+For rate limiting, aws api gateway is configured.  60 requests per second
+is configured.
+
+
 
 ## Project Directory/File Structure
 1. **src** - This directory contains the source code.
