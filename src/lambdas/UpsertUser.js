@@ -15,7 +15,7 @@ class UpsertUser {
             const body = await UpsertUser.upsert(UpsertUser.getUserFromEvent(payload));
             return LambdaFy.response(body, 200);
         } catch (err) {
-            return LambdaFy.response(err, 500);
+            return LambdaFy.response({ errors: err, }, 500);
         }
     }
 
