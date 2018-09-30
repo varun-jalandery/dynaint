@@ -8,6 +8,10 @@ class UpsertUser {
     static async handler(event) {
         try {
             const payload = event.body ? JSON.parse(event.body) : event;
+            const errors = UpsertUser.checkErrors(payload);
+            if (errors.length) {
+                return LambdaFy.response({ errors, }, 400);
+            }
             const body = await UpsertUser.upsert(UpsertUser.getUserFromEvent(payload));
             return LambdaFy.response(body, 200);
         } catch (err) {
@@ -54,6 +58,42 @@ class UpsertUser {
             return keys;
         }
         return keys.filter(key => excludeKeys.indexOf(key) === -1);
+    }
+
+    static checkErrors(data) {
+        const errors = [];
+        UpsertUser.getValidKeys(['updated_at']).forEach((key) => {
+            if (data[key] && typeof data[key] !== 'string') {
+                errors.push(`${key} should be string, ${typeof data[key]} given`);
+            }
+        });
+        if (errors.length) {
+            return errors;
+        }
+        if (!data.email) {
+            errors.push('email cannot be empty');
+            return errors;
+        }
+        if (!UpsertUser.isEmailValid(data.email)) {
+            errors.push(`email[${data.email}] is not valid`);
+            return errors;
+        }
+
+        if (!data.mobile) {
+            errors.push('mobile cannot be empty');
+            return errors;
+        }
+
+        if (!/^[0-9]{3,10}$/.test(data.mobile)) {
+            errors.push(`mobile[${data.mobile}] is not valid, it should contain 3 to 10 digits only`);
+        }
+        return errors;
+    }
+
+    static isEmailValid(email) {
+        // eslint-disable-next-line no-useless-escape
+        const regEx = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return regEx.test(email);
     }
 }
 
