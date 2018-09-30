@@ -2,6 +2,12 @@
 This project is done in node js.
 For unit and functional tests mocha and chai libraries are used.
 
+Unit tests and functional tests automatically run when code is committed.
+If tests fail, code is not committed.
+
+Also linting runs automatically, when code is committed, if linting
+fails, code is not committed.
+
 For computing test coverage istanbul library is used.
 
 For making requests to aws api gateways in functional tests, aws4
