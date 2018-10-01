@@ -59,6 +59,8 @@ call api gateway.
 11. **src/test/unit** - This directory contains the unit tests
 12. **src/test/functional** - This directory contains the functional
 tests.
+13. **src/lib/Lambda** - This class has invoke method to directly call aws
+lambdas.
 
 
 ## Commands
