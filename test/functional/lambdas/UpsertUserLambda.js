@@ -1,9 +1,9 @@
 require('dotenv').config();
 const { expect, } = require('chai');
-const AwsSign = require('src/lib/AwsSign');
+const Lambda = require('src/lib/Lambda');
 
 
-describe('Lambda - Upsert User :: POST : /user', async () => {
+describe('Lambda :: Upsert User', async () => {
     const body = {
         name: 'Henry Ford V',
         mobile: '12345678',
@@ -13,8 +13,9 @@ describe('Lambda - Upsert User :: POST : /user', async () => {
     let data = null;
 
     before(async () => {
+        const lambda = new Lambda();
         // eslint-disable-next-line no-unused-expressions
-        data = await AwsSign.request('API_UPSERT_USER', 'POST', body);
+        data = await lambda.invoke(process.env.AWS_LAMBDA_UPSERT_USER, body);
     });
 
     it('statusCode should be 200', async () => {

@@ -12,7 +12,7 @@ class Lambda {
         );
     }
 
-    invoke(fnName, payload) {
+    async invoke(fnName, payload) {
         return new Promise((resolve, reject) => {
             this.lambda.invoke(
                 {

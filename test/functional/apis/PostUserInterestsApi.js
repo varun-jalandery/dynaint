@@ -3,7 +3,7 @@ const { expect, } = require('chai');
 const AwsSign = require('src/lib/AwsSign');
 
 
-describe('Lambda - Upsert User Interest :: POST : /user', async () => {
+describe('API :: POST : /user/interests', async () => {
     const body = {
         mobile: '12345678',
         interests:
