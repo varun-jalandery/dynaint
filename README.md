@@ -1,4 +1,4 @@
-# Aws - Lambdas, Api Gateway and DynamoDB
+# Aws - Lambdas, Api Gateway and DynamoDB - Doc
 This project is done in node js.
 For unit and functional tests mocha and chai libraries are used.
 
