@@ -95,3 +95,4 @@ $ npm run test:coverage
 4
 5
 6
+7
