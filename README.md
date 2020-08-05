@@ -90,3 +90,4 @@ To compute coverage
 $ npm run test:coverage
 ```
 
+2
